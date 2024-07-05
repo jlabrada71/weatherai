@@ -1,1 +1,0 @@
-export { default } from "file:///media/jlabrada/ai/experiments/weatherai/weather-ui/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"

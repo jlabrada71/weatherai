@@ -27,14 +27,28 @@ import ChatMessage from '~/components/ChatMessage.vue';
 import axios from 'axios';
 
 const messages = ref([
-  {id: 1, text:'this is an answer', local: false },
-  {id: 2, text:'this is a question', local: true },
+  { id: 1, message: "Hi!! I'm the weather bot.  ", local: false},
+  { id: 2, message: 'Could you tell me where you are? (City, Country)', local: false }
+
 ]);
 
 const question = ref('')
 
-function sendRequest() {
-  console.log(question.value);
+async function sendRequest() {
+  try {
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    const newQuestion =  {id: messages.value.length, message: question.value, local: true }
+    console.log(newQuestion);
+    messages.value.push( newQuestion );
+    const response = await axios.post('http://localhost:4000/chat-bot', {
+      question: question.value
+    })
+    const newResponse = { id: messages.value.length, message: response.data.message, local: false };
+    console.log(newResponse);
+    messages.value.push(newResponse);
+  } catch(e) {
+    console.log(e);
+  }
 }
 
 </script>

@@ -7,7 +7,6 @@ const WEATHER_API = process.env.WEATHER_API;
 console.log(OPENAI_API);
 console.log(WEATHER_API);
 
-
 async function getWeatherFor({location}) {
   console.log('Looking the weather for ' + location);
   // const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER_API}`

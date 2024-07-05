@@ -3,7 +3,9 @@ import ChatMessage from '~/components/ChatMessage.vue';
 <template>
   <div class="flex flex-col p-10 gap-10 bg-slate-100">
     <div>
-      <ChatMessage v-for="message in messages" :message="message.text" :local="message.local" :key="message.id"></ChatMessage>
+      <div  v-for="message in messages"  :key="message.id">
+        <ChatMessage :message="message.text" :local="message.local"></ChatMessage>
+      </div>
     </div>
     
     <div class="flex bg-slate-200 p-5 gap-5">
@@ -27,8 +29,8 @@ import ChatMessage from '~/components/ChatMessage.vue';
 import axios from 'axios';
 
 const messages = ref([
-  { id: 1, message: "Hi!! I'm the weather bot.  ", local: false},
-  { id: 2, message: 'Could you tell me where you are? (City, Country)', local: false }
+  { id: 1, text: "Hi!! I'm the weather bot.  ", local: false},
+  { id: 2, text: 'Could you tell me where you are? (City, Country)', local: false }
 
 ]);
 
@@ -37,15 +39,16 @@ const question = ref('')
 async function sendRequest() {
   try {
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-    const newQuestion =  {id: messages.value.length, message: question.value, local: true }
+    const newQuestion =  {id: messages.value.length, text: question.value, local: true }
     console.log(newQuestion);
     messages.value.push( newQuestion );
     const response = await axios.post('http://localhost:4000/chat-bot', {
       question: question.value
     })
-    const newResponse = { id: messages.value.length, message: response.data.message, local: false };
+    const newResponse = { id: messages.value.length, text: response.data.message, local: false };
     console.log(newResponse);
     messages.value.push(newResponse);
+    question.value = '';
   } catch(e) {
     console.log(e);
   }

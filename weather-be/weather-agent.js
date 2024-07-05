@@ -51,7 +51,7 @@ export class SimpleFunctionCallingAgent {
 
   analyse({ main, wind, rain }) {
     if (rain) return "Stay inside, it's raining outside";
-    if (main.feels_like >= 25 ) return "Stay inside, it feels to hot outside";
+    if (main.feels_like >= 25 ) return "Stay inside, it feels too hot outside";
     if (main.humidity >= 80) return "Stay inside, it's way too humid outside";
     if (wind >= 5) return "Stay inside, it's too windy outside";
     
